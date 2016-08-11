@@ -9,15 +9,15 @@ Information about fcl file can be found on http://jfuzzylogic.sourceforge.net/ht
 Configuration of openhab.cfg:
 ############################### jFuzzyLogic action ##############################$
 #
-# jFuzzyLogic set #1 configuration
-#jfuzzylogic:<<function_block#1>>.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:<<function_block#1>>.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:<<function_block#1>>.OutParam=outparam
+#jFuzzyLogic set #1 configuration
+#jfuzzylogic:function_block#1.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:function_block#1.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:function_block#1.OutParam=outparam
 
-# jFuzzyLogic set #2 configuration
-#jfuzzylogic:<<function_block#2>>.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:<<function_block#2>>.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:<<function_block#2>>.OutParam=outparam
+#jFuzzyLogic set #2 configuration
+#jfuzzylogic:function_block#2.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:function_block#2.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:function_block#2.OutParam=outparam
 
 
 Example of usage:
