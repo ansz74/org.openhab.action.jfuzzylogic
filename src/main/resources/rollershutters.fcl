@@ -1,0 +1,142 @@
+FUNCTION_BLOCK ROLLERSHUTTERS
+VAR_INPUT
+sun_light : REAL;
+internal_temperature : REAL;
+external_temperature : REAL;
+END_VAR
+
+FUZZIFY sun_light
+    TERM harsh := (30000,0) ( 35000,1) (150000,1);
+    TERM strong := (10000,0) (15000,1) (30000,1) (35000,0);
+    TERM moderate := (1500,0) (2000,1) (10000,1) (15000,0);
+    TERM weak := (0,1) ( 1000,1) (2000,0);
+END_FUZZIFY
+
+FUZZIFY internal_temperature
+    TERM cold := (7,1) ( 18,1) (20,0);
+    TERM comfort := (19,0) ( 20,1) (22,1) (23,0);
+    TERM warm := (22,0) ( 23,1) (24,1) (25,0);
+    TERM hot := (24,0) ( 25,1) (35,1);
+END_FUZZIFY
+
+FUZZIFY external_temperature
+	TERM cold := (-35,1) ( -10,1) (0,0);
+	TERM cool := (-3,0) ( 0,1) (10,1) (15,0);
+	TERM moderate := (10,0) ( 15,1) (20,1) (23,0);
+	TERM hot := (22,0) ( 25,1) (45,1);
+END_FUZZIFY
+
+VAR_OUTPUT              
+    rs_position : REAL;
+END_VAR
+
+DEFUZZIFY rs_position
+    TERM open := (50,0) (100,1);
+    TERM closed := (0,1) (50,0);
+END_DEFUZZIFY
+
+RULEBLOCK harsh
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF sun_light IS harsh AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 2 : IF sun_light IS harsh AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 3 : IF sun_light IS harsh AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
+    RULE 4 : IF sun_light IS harsh AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 5 : IF sun_light IS harsh AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 6 : IF sun_light IS harsh AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 7 : IF sun_light IS harsh AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
+    RULE 8 : IF sun_light IS harsh AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 9 : IF sun_light IS harsh AND internal_temperature IS hot AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 10 : IF sun_light IS harsh AND internal_temperature IS hot AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 11 : IF sun_light IS harsh AND internal_temperature IS hot AND external_temperature IS cool THEN rs_position IS closed;
+    RULE 12 : IF sun_light IS harsh AND internal_temperature IS hot AND external_temperature IS cold THEN rs_position IS closed;
+    
+    RULE 13 : IF sun_light IS harsh AND internal_temperature IS cold AND external_temperature IS hot THEN rs_position IS open;
+    RULE 14 : IF sun_light IS harsh AND internal_temperature IS cold AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 15 : IF sun_light IS harsh AND internal_temperature IS cold AND external_temperature IS cool THEN rs_position IS open;
+    RULE 16 : IF sun_light IS harsh AND internal_temperature IS cold AND external_temperature IS cold THEN rs_position IS open;
+END_RULEBLOCK
+
+RULEBLOCK strong
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 2 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 3 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
+    RULE 4 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 5 : IF sun_light IS strong AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 6 : IF sun_light IS strong AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 7 : IF sun_light IS strong AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
+    RULE 8 : IF sun_light IS strong AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 9 : IF sun_light IS strong AND internal_temperature IS hot AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 10 : IF sun_light IS strong AND internal_temperature IS hot AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 11 : IF sun_light IS strong AND internal_temperature IS hot AND external_temperature IS cool THEN rs_position IS closed;
+    RULE 12 : IF sun_light IS strong AND internal_temperature IS hot AND external_temperature IS cold THEN rs_position IS closed;
+    
+    RULE 13 : IF sun_light IS strong AND internal_temperature IS cold AND external_temperature IS hot THEN rs_position IS open;
+    RULE 14 : IF sun_light IS strong AND internal_temperature IS cold AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 15 : IF sun_light IS strong AND internal_temperature IS cold AND external_temperature IS cool THEN rs_position IS open;
+    RULE 16 : IF sun_light IS strong AND internal_temperature IS cold AND external_temperature IS cold THEN rs_position IS open;
+END_RULEBLOCK
+
+RULEBLOCK moderate
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 2 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 3 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
+    RULE 4 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS closed;
+    
+    RULE 5 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 6 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 7 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
+    RULE 8 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 9 : IF sun_light IS moderate AND internal_temperature IS hot AND external_temperature IS hot THEN rs_position IS closed;
+    RULE 10 : IF sun_light IS moderate AND internal_temperature IS hot AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 11 : IF sun_light IS moderate AND internal_temperature IS hot AND external_temperature IS cool THEN rs_position IS open;
+    RULE 12 : IF sun_light IS moderate AND internal_temperature IS hot AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 13 : IF sun_light IS moderate AND internal_temperature IS cold AND external_temperature IS hot THEN rs_position IS open;
+    RULE 14 : IF sun_light IS moderate AND internal_temperature IS cold AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 15 : IF sun_light IS moderate AND internal_temperature IS cold AND external_temperature IS cool THEN rs_position IS open;
+    RULE 16 : IF sun_light IS moderate AND internal_temperature IS cold AND external_temperature IS cold THEN rs_position IS closed;
+END_RULEBLOCK
+
+RULEBLOCK weak
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF sun_light IS weak AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS open;
+    RULE 2 : IF sun_light IS weak AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 3 : IF sun_light IS weak AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
+    RULE 4 : IF sun_light IS weak AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS closed;
+    
+    RULE 5 : IF sun_light IS weak AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS open;
+    RULE 6 : IF sun_light IS weak AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 7 : IF sun_light IS weak AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
+    RULE 8 : IF sun_light IS weak AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS closed;
+    
+    RULE 9 : IF sun_light IS weak AND internal_temperature IS hot AND external_temperature IS hot THEN rs_position IS open;
+    RULE 10 : IF sun_light IS weak AND internal_temperature IS hot AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 11 : IF sun_light IS weak AND internal_temperature IS hot AND external_temperature IS cool THEN rs_position IS open;
+    RULE 12 : IF sun_light IS weak AND internal_temperature IS hot AND external_temperature IS cold THEN rs_position IS open;
+    
+    RULE 13 : IF sun_light IS weak AND internal_temperature IS cold AND external_temperature IS hot THEN rs_position IS open;
+    RULE 14 : IF sun_light IS weak AND internal_temperature IS cold AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 15 : IF sun_light IS weak AND internal_temperature IS cold AND external_temperature IS cool THEN rs_position IS closed;
+    RULE 16 : IF sun_light IS weak AND internal_temperature IS cold AND external_temperature IS cold THEN rs_position IS closed;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
