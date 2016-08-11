@@ -1,6 +1,6 @@
 This action extends openhab 1.x actions set by fuzzy logic features using the most complete fuzzy logic library in Java http://jfuzzylogic.sourceforge.net.
 
-Only what you need to do is to configure fcl file, openhab.cfg and use doFuzzyLogic action in some rule ([action jar file] (https://github.com/ansz74/org.openhab.action.jfuzzylogic/blob/master/target/org.openhab.action.jfuzzylogic-1.9.0-SNAPSHOT.jar) must be first added to addon library).
+Only what you need to do is to configure fcl file, openhab.cfg and use doFuzzyLogic action in some rule ([action jar file] (https://github.com/ansz74/org.openhab.action.jfuzzylogic/blob/master/target) must be first added to addon library).
 
 Before you start using action in openhab please read jfuzzylogic library [manual] (http://jfuzzylogic.sourceforge.net/html/manual.html)
 
