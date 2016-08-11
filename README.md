@@ -1,32 +1,35 @@
 This action extends openhab 1.x actions by fuzzy logic features using the most complete fuzzy logic library in Java http://jfuzzylogic.sourceforge.net.
 
-Before you start using action please read jfuzzylogic library manual http://jfuzzylogic.sourceforge.net/html/manual.html
-
 Only what you need is to configure fcl file, openhab.cfg and use doFuzzyLogic action (jar file must be first added to addon library).
+
+Before you start using action in openhab please read jfuzzylogic library manual http://jfuzzylogic.sourceforge.net/html/manual.html
 
 Information about fcl file can be found on http://jfuzzylogic.sourceforge.net/html/manual.html#details
 
 Configuration of openhab.cfg:
+```
 ############################### jFuzzyLogic action ##############################$
 #
 #jFuzzyLogic set #1 configuration
-#jfuzzylogic:function_block#1.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:function_block#1.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:function_block#1.OutParam=outparam
+#jfuzzylogic:<function_block#1>.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:<function_block#1>.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:<function_block#1>.OutParam=outparam
 
 #jFuzzyLogic set #2 configuration
-#jfuzzylogic:function_block#2.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:function_block#2.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:function_block#2.OutParam=outparam
-
+#jfuzzylogic:<function_block#2>.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:<function_block#2>.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:<function_block#2>.OutParam=outparam
+```
 
 Example of usage:
 openhab.cfg
+```
 jfuzzylogic:VENTILATION.FclFilePath=/etc/openhab/configurations/ventilation.fcl
 jfuzzylogic:VENTILATION.InParamList=air_quality, internal_temperature, external_temperature
 jfuzzylogic:VENTILATION.OutParam=fun_level
-
+```
 rule:
+```
 rule "VentilationFuzzyLogic"
 when
 	Item VentMode					changed
@@ -50,3 +53,4 @@ then
 	}
 	logInfo("VentilationFuzzyLogic","Stop")
 end
+```
