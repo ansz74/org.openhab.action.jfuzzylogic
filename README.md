@@ -47,7 +47,10 @@ when
 	Time cron "0 0/10 * * * ?"
 then
 	logInfo("VentilationFuzzyLogic","Start")
-	if (VentMode.state	instanceof StringType) {
+	if (VentMode.state	instanceof StringType 	&&
+		EnvCO2AVG.state instanceof DecimalType	&&
+		gTemp.state 	instanceof DecimalType 	&&
+		comfoairIndoorIncommingTemperature.state instanceof DecimalType) {
 		if (VentMode.state == "AUTO") {
 			val vInParams = newArrayList((EnvCO2AVG.state as DecimalType).doubleValue, 							//avg co2 level
 										(gTemp.state as DecimalType).doubleValue,								//avg internal temperature
