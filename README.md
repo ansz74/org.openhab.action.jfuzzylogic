@@ -2,22 +2,22 @@ This action extends openhab 1.x actions by fuzzy logic features using the most c
 
 Before you start using action please read jfuzzylogic library manual http://jfuzzylogic.sourceforge.net/html/manual.html
 
-
-What you need is to configure fcl file, openhab.cfg and use doFuzzyLogic action (jar file must be first added to addon library).
+Only what you need is to configure fcl file, openhab.cfg and use doFuzzyLogic action (jar file must be first added to addon library).
 
 Information about fcl file can be found on http://jfuzzylogic.sourceforge.net/html/manual.html#details
+
 Configuration of openhab.cfg:
 ############################### jFuzzyLogic action ##############################$
 #
 # jFuzzyLogic set #1 configuration
-#jfuzzylogic:<function_block#1>.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:<function_block#1>.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:<function_block#1>.OutParam=outparam
+#jfuzzylogic:<<function_block#1>>.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:<<function_block#1>>.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:<<function_block#1>>.OutParam=outparam
 
 # jFuzzyLogic set #2 configuration
-#jfuzzylogic:<function_block#2>.FclFilePath=/etc/openhab/configurations...
-#jfuzzylogic:<function_block#2>.InParamList=inparam1,inparam2,inparam3
-#jfuzzylogic:<function_block#2>.OutParam=outparam
+#jfuzzylogic:<<function_block#2>>.FclFilePath=/etc/openhab/configurations...
+#jfuzzylogic:<<function_block#2>>.InParamList=inparam1,inparam2,inparam3
+#jfuzzylogic:<<function_block#2>>.OutParam=outparam
 
 
 Example of usage:
