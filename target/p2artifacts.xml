@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='org.openhab.action.jfuzzylogic' version='1.9.0.201608090925'>
+    <properties size='5'>
+      <property name='artifact.size' value='2835993'/>
+      <property name='download.size' value='2835993'/>
+      <property name='maven-groupId' value='org.openhab.action'/>
+      <property name='maven-artifactId' value='org.openhab.action.jfuzzylogic'/>
+      <property name='maven-version' value='1.9.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

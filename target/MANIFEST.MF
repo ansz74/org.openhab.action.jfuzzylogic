@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-Description: This is the JFuzzyLogic action of the open Home Au
+ tomation Bus (openHAB)
+Bundle-License: http://www.eclipse.org/legal/epl-v10.html
+Bundle-SymbolicName: org.openhab.action.jfuzzylogic
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: openHAB.org
+Bundle-DocURL: http://www.openhab.org
+Import-Package: org.apache.commons.lang,org.openhab.core.scriptengine.
+ action,org.openhab.core.items,org.openhab.core.library.items,org.open
+ hab.core.library.types,org.openhab.core.types,org.osgi.framework,org.
+ osgi.service.cm,org.osgi.service.component,org.slf4j
+Service-Component: OSGI-INF/action.xml
+Bundle-Name: openHAB JFuzzyLogic Action
+Bundle-Version: 1.9.0.201608090925
+Bundle-ClassPath: .,lib/jFuzzyLogic_core.jar
+Private-Package: org.openhab.action.jfuzzylogic.internal
+Ignore-Package: org.openhab.action.jfuzzylogic.internal
+Bundle-Activator: org.openhab.action.jfuzzylogic.internal.JFuzzyLogicA
+ ctivator
+

@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=jFuzzyLogic_core.jar -DgroupId=net.sourceforge.jfuzzylogic -DartifactId=fuzzylogic-core -Dversion=1.0.FINAL -Dpackaging=jar
