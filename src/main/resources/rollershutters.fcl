@@ -22,7 +22,7 @@ END_FUZZIFY
 FUZZIFY external_temperature
 	TERM cold := (-35,1) ( -10,1) (0,0);
 	TERM cool := (-3,0) ( 0,1) (10,1) (15,0);
-	TERM moderate := (10,0) ( 15,1) (20,1) (23,0);
+	TERM moderate := (10,0) ( 15,1) (22,1) (25,0);
 	TERM hot := (22,0) ( 25,1) (45,1);
 END_FUZZIFY
 
@@ -31,8 +31,8 @@ VAR_OUTPUT
 END_VAR
 
 DEFUZZIFY rs_position
-    TERM open := (50,0) (100,1);
-    TERM closed := (0,1) (50,0);
+    TERM open := (0,1) (50,0);
+    TERM closed := (50,0) (100,1);
 END_DEFUZZIFY
 
 RULEBLOCK harsh
@@ -95,10 +95,10 @@ RULEBLOCK moderate
     RULE 1 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS closed;
     RULE 2 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS open;
     RULE 3 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
-    RULE 4 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS closed;
+    RULE 4 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS open;
     
     RULE 5 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS closed;
-    RULE 6 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 6 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS open;
     RULE 7 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
     RULE 8 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS open;
     
