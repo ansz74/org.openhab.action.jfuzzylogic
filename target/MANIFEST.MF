@@ -14,7 +14,7 @@ Import-Package: org.apache.commons.lang,org.openhab.core.scriptengine.
  osgi.service.cm,org.osgi.service.component,org.slf4j
 Service-Component: OSGI-INF/action.xml
 Bundle-Name: openHAB JFuzzyLogic Action
-Bundle-Version: 1.9.0.201608090925
+Bundle-Version: 1.9.0.201608130854
 Bundle-ClassPath: .,lib/jFuzzyLogic_core.jar
 Private-Package: org.openhab.action.jfuzzylogic.internal
 Ignore-Package: org.openhab.action.jfuzzylogic.internal

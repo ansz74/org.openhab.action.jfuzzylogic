@@ -6,9 +6,9 @@ external_temperature : REAL;
 END_VAR
 
 FUZZIFY sun_light
-    TERM harsh := (30000,0) ( 35000,1) (150000,1);
-    TERM strong := (10000,0) (15000,1) (30000,1) (35000,0);
-    TERM moderate := (1500,0) (2000,1) (10000,1) (15000,0);
+    TERM harsh := (50000,0) ( 60000,1) (150000,1);
+    TERM strong := (20000,0) (25000,1) (50000,1) (60000,0);
+    TERM moderate := (1500,0) (2000,1) (20000,1) (25000,0);
     TERM weak := (0,1) ( 1000,1) (2000,0);
 END_FUZZIFY
 
@@ -67,7 +67,7 @@ RULEBLOCK strong
     ACCU : MAX; // Use 'max' accumulation method
 
     RULE 1 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS hot THEN rs_position IS closed;
-    RULE 2 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS closed;
+    RULE 2 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS moderate THEN rs_position IS open;
     RULE 3 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS cool THEN rs_position IS open;
     RULE 4 : IF sun_light IS strong AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS open;
     
