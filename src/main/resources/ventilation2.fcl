@@ -1,0 +1,144 @@
+FUNCTION_BLOCK VENTILATION
+VAR_INPUT
+air_quality : REAL;
+internal_temperature : REAL;
+external_temperature : REAL;
+END_VAR
+
+FUZZIFY air_quality
+    TERM very_good := (300,1) ( 500,1) (600,0);
+    TERM good := (500,0) (600,1) (800,1) (900,0);
+    TERM poor := (800,0) (900,1) (1100,1) (1200,0);
+    TERM very_poor := (1100,0) ( 1200,1) (1500,1);
+END_FUZZIFY
+
+FUZZIFY internal_temperature
+    TERM cold := (7,1) ( 18,1) (20,0);
+    TERM comfort := (19,0) ( 20,1) (22,1) (23,0);
+    TERM warm := (22,0) ( 23,1) (24,1) (25,0);
+    TERM hot := (24,0) ( 25,1) (35,1);
+END_FUZZIFY
+
+FUZZIFY external_temperature
+    TERM cold := (-20,1) ( 0,1) (3,0);
+    TERM cool := (0,0) ( 5,1) (10,1) (15,0);
+    TERM moderate := (12,0) ( 15,1) (22,1) (24,0);
+    TERM hot := (22,0) ( 24,1) (45,1);
+END_FUZZIFY
+
+VAR_OUTPUT              
+    fun_level : REAL;
+END_VAR
+
+DEFUZZIFY fun_level
+    TERM very_slow := (0.5,0) (1,1) (1.5,0);
+    TERM normal := (1.5,0) (2,1) (2.5,0);
+    TERM fast := (2.5,0) (3,1) (3.5,0);
+    TERM very_fast := (3.5,0) (4,1) (4.5,0);
+END_DEFUZZIFY
+
+RULEBLOCK very_good
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF air_quality IS very_good AND internal_temperature IS comfort AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 2 : IF air_quality IS very_good AND internal_temperature IS comfort AND external_temperature IS moderate THEN fun_level IS very_slow;
+    RULE 3 : IF air_quality IS very_good AND internal_temperature IS comfort AND external_temperature IS cool THEN fun_level IS very_slow;
+    RULE 4 : IF air_quality IS very_good AND internal_temperature IS comfort AND external_temperature IS cold THEN fun_level IS very_slow;
+    
+    RULE 5 : IF air_quality IS very_good AND internal_temperature IS warm AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 6 : IF air_quality IS very_good AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS very_slow;
+    RULE 7 : IF air_quality IS very_good AND internal_temperature IS warm AND external_temperature IS cool THEN fun_level IS very_slow;
+    RULE 8 : IF air_quality IS very_good AND internal_temperature IS warm AND external_temperature IS cold THEN fun_level IS very_slow;
+    
+    RULE 9 : IF air_quality IS very_good AND internal_temperature IS hot AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 10 : IF air_quality IS very_good AND internal_temperature IS hot AND external_temperature IS moderate THEN fun_level IS very_slow;
+    RULE 11 : IF air_quality IS very_good AND internal_temperature IS hot AND external_temperature IS cool THEN fun_level IS normal;
+    RULE 12 : IF air_quality IS very_good AND internal_temperature IS hot AND external_temperature IS cold THEN fun_level IS normal;
+    
+    RULE 13 : IF air_quality IS very_good AND internal_temperature IS cold AND external_temperature IS hot THEN fun_level IS normal;
+    RULE 14 : IF air_quality IS very_good AND internal_temperature IS cold AND external_temperature IS moderate THEN fun_level IS very_slow;
+    RULE 15 : IF air_quality IS very_good AND internal_temperature IS cold AND external_temperature IS cool THEN fun_level IS very_slow;
+    RULE 16 : IF air_quality IS very_good AND internal_temperature IS cold AND external_temperature IS cold THEN fun_level IS very_slow;
+END_RULEBLOCK
+
+RULEBLOCK good
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF air_quality IS good AND internal_temperature IS comfort AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 2 : IF air_quality IS good AND internal_temperature IS comfort AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 3 : IF air_quality IS good AND internal_temperature IS comfort AND external_temperature IS cool THEN fun_level IS normal;
+    RULE 4 : IF air_quality IS good AND internal_temperature IS comfort AND external_temperature IS cold THEN fun_level IS very_slow;
+    
+    RULE 5 : IF air_quality IS good AND internal_temperature IS warm AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 6 : IF air_quality IS good AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 7 : IF air_quality IS good AND internal_temperature IS warm AND external_temperature IS cool THEN fun_level IS normal;
+    RULE 8 : IF air_quality IS good AND internal_temperature IS warm AND external_temperature IS cold THEN fun_level IS normal;
+    
+    RULE 9 : IF air_quality IS good AND internal_temperature IS hot AND external_temperature IS hot THEN fun_level IS very_slow;
+    RULE 10 : IF air_quality IS good AND internal_temperature IS hot AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 11 : IF air_quality IS good AND internal_temperature IS hot AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 12 : IF air_quality IS good AND internal_temperature IS hot AND external_temperature IS cold THEN fun_level IS fast;
+    
+    RULE 13 : IF air_quality IS good AND internal_temperature IS cold AND external_temperature IS hot THEN fun_level IS fast;
+    RULE 14 : IF air_quality IS good AND internal_temperature IS cold AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 15 : IF air_quality IS good AND internal_temperature IS cold AND external_temperature IS cool THEN fun_level IS normal;
+    RULE 16 : IF air_quality IS good AND internal_temperature IS cold AND external_temperature IS cold THEN fun_level IS very_slow;
+END_RULEBLOCK
+
+RULEBLOCK poor
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF air_quality IS poor AND internal_temperature IS comfort AND external_temperature IS hot THEN fun_level IS normal;
+    RULE 2 : IF air_quality IS poor AND internal_temperature IS comfort AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 3 : IF air_quality IS poor AND internal_temperature IS comfort AND external_temperature IS cool THEN fun_level IS normal;
+    RULE 4 : IF air_quality IS poor AND internal_temperature IS comfort AND external_temperature IS cold THEN fun_level IS normal;
+    
+    RULE 5 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS hot THEN fun_level IS normal;
+    RULE 6 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 7 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 8 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS cold THEN fun_level IS fast;
+    
+    RULE 9 : IF air_quality IS poor AND internal_temperature IS hot AND external_temperature IS hot THEN fun_level IS normal;
+    RULE 10 : IF air_quality IS poor AND internal_temperature IS hot AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 11 : IF air_quality IS poor AND internal_temperature IS hot AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 12 : IF air_quality IS poor AND internal_temperature IS hot AND external_temperature IS cold THEN fun_level IS very_fast;
+    
+    RULE 13 : IF air_quality IS poor AND internal_temperature IS cold AND external_temperature IS hot THEN fun_level IS very_fast;
+    RULE 14 : IF air_quality IS poor AND internal_temperature IS cold AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 15 : IF air_quality IS poor AND internal_temperature IS cold AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 16 : IF air_quality IS poor AND internal_temperature IS cold AND external_temperature IS cold THEN fun_level IS normal;
+END_RULEBLOCK
+
+RULEBLOCK very_poor
+    AND : MIN;  // Use 'min' for 'and'
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF air_quality IS very_poor AND internal_temperature IS comfort AND external_temperature IS hot THEN fun_level IS fast;
+    RULE 2 : IF air_quality IS very_poor AND internal_temperature IS comfort AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 3 : IF air_quality IS very_poor AND internal_temperature IS comfort AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 4 : IF air_quality IS very_poor AND internal_temperature IS comfort AND external_temperature IS cold THEN fun_level IS fast;
+    
+    RULE 5 : IF air_quality IS very_poor AND internal_temperature IS warm AND external_temperature IS hot THEN fun_level IS fast;
+    RULE 6 : IF air_quality IS very_poor AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 7 : IF air_quality IS very_poor AND internal_temperature IS warm AND external_temperature IS cool THEN fun_level IS very_fast;
+    RULE 8 : IF air_quality IS very_poor AND internal_temperature IS warm AND external_temperature IS cold THEN fun_level IS very_fast;
+    
+    RULE 9 : IF air_quality IS very_poor AND internal_temperature IS hot AND external_temperature IS hot THEN fun_level IS fast;
+    RULE 10 : IF air_quality IS very_poor AND internal_temperature IS hot AND external_temperature IS moderate THEN fun_level IS fast;
+    RULE 11 : IF air_quality IS very_poor AND internal_temperature IS hot AND external_temperature IS cool THEN fun_level IS very_fast;
+    RULE 12 : IF air_quality IS very_poor AND internal_temperature IS hot AND external_temperature IS cold THEN fun_level IS very_fast;
+    
+    RULE 13 : IF air_quality IS very_poor AND internal_temperature IS cold AND external_temperature IS hot THEN fun_level IS very_fast;
+    RULE 14 : IF air_quality IS very_poor AND internal_temperature IS cold AND external_temperature IS moderate THEN fun_level IS very_fast;
+    RULE 15 : IF air_quality IS very_poor AND internal_temperature IS cold AND external_temperature IS cool THEN fun_level IS fast;
+    RULE 16 : IF air_quality IS very_poor AND internal_temperature IS cold AND external_temperature IS cold THEN fun_level IS fast;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

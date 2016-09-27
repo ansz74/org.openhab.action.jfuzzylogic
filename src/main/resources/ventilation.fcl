@@ -100,7 +100,7 @@ RULEBLOCK poor
     RULE 4 : IF air_quality IS poor AND internal_temperature IS comfort AND external_temperature IS cold THEN fun_level IS normal;
     
     RULE 5 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS hot THEN fun_level IS normal;
-    RULE 6 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS normal;
+    RULE 6 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS moderate THEN fun_level IS fast;
     RULE 7 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS cool THEN fun_level IS fast;
     RULE 8 : IF air_quality IS poor AND internal_temperature IS warm AND external_temperature IS cold THEN fun_level IS fast;
     

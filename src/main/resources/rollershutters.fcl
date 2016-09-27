@@ -98,7 +98,7 @@ RULEBLOCK moderate
     RULE 4 : IF sun_light IS moderate AND internal_temperature IS comfort AND external_temperature IS cold THEN rs_position IS open;
     
     RULE 5 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS hot THEN rs_position IS closed;
-    RULE 6 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS open;
+    RULE 6 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS moderate THEN rs_position IS closed;
     RULE 7 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cool THEN rs_position IS open;
     RULE 8 : IF sun_light IS moderate AND internal_temperature IS warm AND external_temperature IS cold THEN rs_position IS open;
     
